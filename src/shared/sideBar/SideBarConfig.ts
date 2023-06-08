@@ -1,5 +1,9 @@
 import * as IconsMaterial from "@mui/icons-material";
-import { swaggerUrl } from "../../config/EndpointsConfig";
+import {
+  gitHubUrl,
+  linkedInUrl,
+  swaggerUrl,
+} from "../../config/EndpointsConfig";
 
 export interface ItemSideBar {
   url: string;
@@ -40,13 +44,13 @@ export const itemsSideBar: ItemSideBar[] = [
     isExternal: true,
   },
   {
-    url: "https://github.com/stephgl07",
+    url: gitHubUrl,
     icon: IconsMaterial.GitHub,
     name: "GitHub",
     isExternal: true,
   },
   {
-    url: "https://github.com/stephgl07",
+    url: linkedInUrl,
     icon: IconsMaterial.LinkedIn,
     name: "LinkedIn",
     isExternal: true,
