@@ -44,6 +44,9 @@ export const itemsSideBar: ItemSideBar[] = [
     isExternal: true,
   },
   {
+    url: "separator",
+  },
+  {
     url: gitHubUrl,
     icon: IconsMaterial.GitHub,
     name: "GitHub",
