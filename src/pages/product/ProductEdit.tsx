@@ -52,10 +52,9 @@ const ProductEdit = () => {
             model={initialValues}
             onSubmit={(values) => {
               const postPermission = async () => {
-                console.log("values", values);
-                // const response = await fetchEditProduct(values);
-                // if (response) history.push("/products");
-                // else history.push("/products/edit");
+                const response = await fetchEditProduct(values);
+                if (response) history.push("/products");
+                else history.push("/products/edit");
               };
               postPermission();
             }}
