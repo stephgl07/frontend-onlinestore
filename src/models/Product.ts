@@ -92,6 +92,7 @@ export class AddEditProductDTO {
   categoryId?: number = 0;
   isActive?: boolean = false;
   creationUser?: string = "";
+  creationDateUtc?: string = "";
   creationTimeZone?: string = "";
   stockThreshold?: number = 0;
   productDetails: AddEditProductDetailDTO[] = [];
@@ -108,4 +109,18 @@ export class AddEditProductDetailDTO {
   reviewCount?: number = 0;
   productWeight?: number = 0;
   productDimensions?: string = "";
+}
+
+export class GetAllByIdProductsDTO {
+  productId: number = 0;
+  productName?: string;
+  productDescription?: string;
+  categoryId?: number;
+  isActive?: boolean;
+  creationDate?: Date;
+  creationUser?: string;
+  creationTimeZone?: string;
+  lastUpdate?: Date;
+  stockThreshold?: number;
+  productDetails: GetProductsDetailDTO[] = [];
 }

@@ -10,36 +10,50 @@ import {
   TextField,
 } from "@mui/material";
 import {
-  AddEditProductDTO,
   AddEditProductDetailDTO,
+  GetAllByIdProductsDTO,
+  PromotionDTO,
 } from "../../models/Product";
 import { Link, useParams } from "react-router-dom";
 import {
-  fetchGetDetailByProductId,
   fetchGetProductById,
 } from "../../services/ProductService";
 import * as IconsMaterial from "@mui/icons-material";
 import DataTable from "../../commons/components/DataTable";
 import { getColumnNames } from "../../commons/utils/ArrayMapping";
+import DialogPromotions from "./components/DialogPromotions";
 
 const ProductDetail = () => {
   const { id }: any = useParams();
-  const [product, setProduct] = React.useState<AddEditProductDTO>();
+  const [openDialogPromotions, setOpenDialogPromotions] = React.useState(false);
+  const [product, setProduct] = React.useState<GetAllByIdProductsDTO>();
+  const [productPromotion, setProductPromotion] = React.useState<PromotionDTO[]>([]);
 
   const columnNames = getColumnNames(new AddEditProductDetailDTO()).filter(
     (column) => column.id !== "productId"
   );
+  const actionsProductDetail = [
+    {
+      url: "none",
+      handleOnClick: (id: number) => {
+        console.log(id);
+        const promotions = product?.productDetails?.find(detail => detail.detailId === id)?.promotions ?? [];
+        if(promotions.length > 0){
+          console.log(promotions);
+          setProductPromotion(promotions);
+          setOpenDialogPromotions(true);
+        }
+
+      },
+      icon: IconsMaterial.Discount,
+    },
+  ];
 
   React.useEffect(() => {
     const getProduct = async () => {
       const productResponse = await fetchGetProductById(id);
-      const productResponseDetails = await fetchGetDetailByProductId(
-        productResponse.productId
-      );
-      setProduct({
-        ...productResponse,
-        productDetails: productResponseDetails,
-      });
+      console.log("Detalle RP",productResponse);
+      setProduct(productResponse);
     };
     getProduct();
   }, []);
@@ -158,6 +172,7 @@ const ProductDetail = () => {
               columnNames={columnNames}
               itemName="modelName"
               itenId="detailId"
+              actionsTable={actionsProductDetail}
             />
           </Paper>
         </div>
@@ -166,6 +181,7 @@ const ProductDetail = () => {
           Se están consultando los datos del producto...
         </Alert>
       )}
+      <DialogPromotions open={openDialogPromotions} onClose={() => setOpenDialogPromotions(false)} promotions={productPromotion} />
     </>
   );
 };

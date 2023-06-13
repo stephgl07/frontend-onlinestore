@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Button, Paper, Toolbar, Typography } from "@mui/material";
 import { AddEditProductDTO } from "../../models/Product";
 import FormProduct from "./components/FormProduct";
@@ -36,6 +35,15 @@ const ProductCreate = () => {
           onSubmit={(values) => {
             const postPermission = async () => {
               console.log("values", values);
+              values.creationTimeZone = localStorage.getItem("timezone") ?? "";
+              values.creationUser = localStorage.getItem("user") ?? "";
+
+              var fechaActual = new Date();
+              var desplazamientoMinutos = fechaActual.getTimezoneOffset();
+              fechaActual.setMinutes(fechaActual.getMinutes() + desplazamientoMinutos);
+              values.creationDateUtc = fechaActual.toISOString();
+              values.categoryId = 1;
+
               const response = await fetchCreateProduct(values);
               if (response) history.push("/products");
               else history.push("/products/create");

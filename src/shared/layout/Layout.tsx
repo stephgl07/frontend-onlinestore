@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import TitleBar from "../titleBar/TitleBar";
 import SideBar from "../sideBar/SideBar";
 import { Box, Container, CssBaseline, Grid, Toolbar } from "@mui/material";

@@ -1,9 +1,7 @@
-import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
+import { Formik, Field, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
 import { AddEditProductDTO } from "../../../models/Product";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { TextField } from "formik-mui";
 
 interface FormProductProps {
@@ -30,7 +28,7 @@ const FormProduct: React.FC<FormProductProps> = ({
         stockThreshold: Yup.number().required("Este campo es requerido."),
       })}
     >
-      {({ isSubmitting, handleChange, handleBlur }) => (
+      {({ isSubmitting }) => (
         <Form>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -43,14 +41,6 @@ const FormProduct: React.FC<FormProductProps> = ({
                 type="text"
                 label="Nombre del Producto"
               />
-              {/* <ErrorMessage
-                name="productName"
-                component={() => (
-                  <Typography color="error" component="label">
-                    {errors.productName}
-                  </Typography>
-                )}
-              /> */}
             </Grid>
             <Grid item xs={12}>
               <Field
@@ -62,14 +52,6 @@ const FormProduct: React.FC<FormProductProps> = ({
                 type="text"
                 label="Descripción del Producto"
               />
-              {/* <ErrorMessage
-                name="productDescription"
-                component={() => (
-                  <Typography color="error" component="label">
-                    {errors.productDescription}
-                  </Typography>
-                )}
-              /> */}
             </Grid>
             <Grid item xs={12}>
               <Field
@@ -81,14 +63,6 @@ const FormProduct: React.FC<FormProductProps> = ({
                 type="number"
                 label="Stock"
               />
-              {/* <ErrorMessage
-                name="stockThreshold"
-                component={() => (
-                  <Typography color="error" component="label">
-                    {errors.stockThreshold}
-                  </Typography>
-                )}
-              /> */}
             </Grid>
             <Grid item xs={12}>
               <Button variant="contained" disabled={isSubmitting} type="submit">

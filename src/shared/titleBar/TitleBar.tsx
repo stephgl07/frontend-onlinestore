@@ -46,9 +46,9 @@ const TitleBar: React.FC<TitleBarProps> = ({
           </Typography>
           <IconButton onClick={toggleDarkMode} color="inherit">
             {darkMode ? (
-              <IconsMaterial.Brightness2Rounded />
-            ) : (
               <IconsMaterial.Brightness7Rounded />
+            ) : (
+              <IconsMaterial.Brightness2Rounded />
             )}
           </IconButton>
           <Button color="inherit">Acerca de</Button>

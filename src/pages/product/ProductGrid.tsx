@@ -3,13 +3,18 @@ import { fetchGetAllProducts } from "../../services/ProductService";
 import { ProductGridItem } from "../../models/Product";
 import DataTable from "../../commons/components/DataTable";
 import { getColumnNames } from "../../commons/utils/ArrayMapping";
+import { Link, useHistory } from "react-router-dom";
 import * as IconsMaterial from "@mui/icons-material";
 import { Box, Button, Paper, Toolbar, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import IconButton from '@mui/material/IconButton';
 
 const ProductGrid = () => {
+  const history = useHistory();
   const [products, setProducts] = React.useState<ProductGridItem[]>([]);
-
+  const handleToHome = () =>{
+    localStorage.clear();
+    history.push("/");
+  };
   const actionsProduct = [
     {
       url: "/products/edit",
@@ -31,17 +36,13 @@ const ProductGrid = () => {
     const getAllProducts = async () => {
       setProducts([]);
 
+      const zonaHoraria = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      localStorage.setItem("user", "admin");
+      localStorage.setItem("timezone", zonaHoraria.toString());
+
       const productList = await fetchGetAllProducts();
 
       if (productList && productList.length > 0) {
-        // let arr = productList.concat(productList);
-        // arr = arr.concat(productList);
-        // arr = arr.concat(productList);
-        // arr = arr.concat(productList);
-        // arr = arr.concat(productList);
-        // arr = arr.concat(productList);
-        // arr = arr.concat(productList);
-
         // setProducts(arr);
         setProducts(productList);
       }
@@ -50,14 +51,13 @@ const ProductGrid = () => {
     getAllProducts();
   }, []);
 
-  const columnNames = getColumnNames(new ProductGridItem()).filter(
-    (column) => column.id !== "productId"
-  );
+  const columnNames = getColumnNames(new ProductGridItem());
 
   return (
     <>
       <Box sx={{ flexGrow: 1, mb: 2 }}>
         <Toolbar>
+          <IconButton onClick={handleToHome}><IconsMaterial.Home/></IconButton>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Productos
           </Typography>

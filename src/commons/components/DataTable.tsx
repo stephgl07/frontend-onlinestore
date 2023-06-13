@@ -41,6 +41,7 @@ const DataTable: React.FC<DataTableProps> = ({
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
+    console.log(event);
     setPage(newPage);
   };
 
@@ -127,16 +128,25 @@ const DataTable: React.FC<DataTableProps> = ({
                     key="actions-table-body"
                     style={{ display: "flex" }}
                   >
-                    {actionsTable.map((actionTable, index) => (
-                      <Link
-                        key={index}
-                        to={`${actionTable.url}/${row[itenId]}`}
-                      >
-                        <IconButton onClick={() => actionTable.handleOnClick()}>
+                    {actionsTable.map((actionTable, index) =>
+                      actionTable.url === "none" ? (
+                        <IconButton
+                          key={index}
+                          onClick={() => actionTable.handleOnClick(row[itenId])}
+                        >
                           <actionTable.icon />
                         </IconButton>
-                      </Link>
-                    ))}
+                      ) : (
+                        <Link
+                          key={index}
+                          to={`${actionTable.url}/${row[itenId]}`}
+                        >
+                          <IconButton>
+                            <actionTable.icon />
+                          </IconButton>
+                        </Link>
+                      )
+                    )}
                   </TableCell>
                 )}
               </TableRow>
